@@ -1,0 +1,11 @@
+{
+  "TYPEs": {
+    "NAME": {
+      "subscribers": [ "CHANNEL" ],
+      "command": "CMD",
+      "standalone": false,
+      "handlers": [ "default" ],
+      "interval": INTERVAL
+    }
+  }
+}

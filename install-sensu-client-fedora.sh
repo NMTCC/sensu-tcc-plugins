@@ -18,5 +18,7 @@ sed -i /etc/sensu/config.json -e s/DBPASS/"$DB_PASS"/
 # copy the plugins
 # cp -r plugins/fedora/ /etc/sensu/plugins/
 
-# fix the permisions/ownership
-chown sensu `find /etc/sensu/ | xargs file | cut -f 1 -d":"`
+# fix the permisions/ownership (instead just run sensu-client as root for now)
+# chown sensu `find /etc/sensu/ | xargs file | cut -f 1 -d":"`
+
+gem install sensu-plugin --no-rdoc --no-ri
