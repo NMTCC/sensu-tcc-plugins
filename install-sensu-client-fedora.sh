@@ -16,7 +16,7 @@ read DB_PASS
 sed -i /etc/sensu/config.json -e s/DBPASS/"$DB_PASS"/
 
 # copy the plugins
-cp -r plugins/fedora/ /etc/sensu/plugins/
+# cp -r plugins/fedora/ /etc/sensu/plugins/
 
 # fix the permisions/ownership
-chown sensu `find /etc/sensu/ | xargs file | grep -v directory | cut -f 1 -d":"`
+chown sensu `find /etc/sensu/ | xargs file | cut -f 1 -d":"`
