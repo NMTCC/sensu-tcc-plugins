@@ -1,5 +1,0 @@
-Like the moddefs I also envision this being a submodule of the main git repo.
-
-It will contain all the plugins, we can make a different feature branch for 
-each channel, this way if we have multiple channels using the same plugin
-the plugin won't be copied twice.
