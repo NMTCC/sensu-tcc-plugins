@@ -1,11 +1,10 @@
 #!/usr/bin/python
-# Plugin to check the FlexLM licenses.
+# Plugin to track the FlexLM metrics
 # Requires a license file to point to the license server we are monitoring.
 
-import re,sys,commands
+import re,sys,commands,socket,time
 
 #Set Variables
-threshold = 0.90 #The max ratio of licenses in use to licenses issued before WARNING
 file_path = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
 
 #Run lmstat
@@ -21,17 +20,19 @@ pattern = re.compile('(Users of )([^:]*)(:  \(Total of )([0-9]*)( licenses issue
 #Perform the search and store matches in list
 matches = re.findall(pattern, output)
 
-#Parse each individual match for errors
+#Process each license metric
 for match in matches:
-    ratio = float(match[5]) / float(match[3])
-    if ratio == 1:
-        print "All " + match[1] + " licenses checked out"
-        sys.exit(2)
-    if ratio > threshold:
-        print match[1] + " licenses are in high use"
-        sys.exit(1)
+	fqdn = socket.getfqdn()
+	timestamp = str(int(time.time()))
+	print fqdn + '.flex.' + match[1] + '.in_use ' + match[3] + ' ' + timestamp
 
-
-print "Licenses are A-OK"
 sys.exit(0)
+
+
+
+
+
+
+
+
 
