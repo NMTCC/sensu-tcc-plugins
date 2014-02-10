@@ -5,10 +5,12 @@
 import re,sys,commands,socket,time
 
 #Set Variables
-file_path = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
+matlab_file = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
+maple_file = '/usr/local/matlab-2013a/etc/glnxa64/maple.lic' #path to maple license file
 
 #Run lmstat
-(status, output) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + file_path)
+(status, output) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + matlab_file)
+(status2, output2) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + maple_file)
 
 #Create Pattern were looking for
 #Regex Groups 
@@ -18,7 +20,7 @@ file_path = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license fi
 pattern = re.compile('(Users of )([^:]*)(:  \(Total of )([0-9]*)( licenses issued;  Total of )([0-9]*)( licenses in use\))')
 
 #Perform the search and store matches in list
-matches = re.findall(pattern, output)
+matches = re.findall(pattern, output + exoutput2)
 
 #Process each license metric
 for match in matches:
