@@ -5,8 +5,8 @@
 import re,sys,commands,socket,time
 
 #Set Variables
-matlab_file = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
-maple_file = '/usr/local/matlab-2013a/etc/glnxa64/maple.lic' #path to maple license file
+matlab_file = '/usr/local/etc/matlab.lic' #path to license file pointing to server
+maple_file = '/usr/local//etc/maple.lic' #path to maple license file
 
 #Run lmstat
 (status, output) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + matlab_file)

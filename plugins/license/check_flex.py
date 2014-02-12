@@ -6,8 +6,8 @@ import re,sys,commands
 
 #Set Variables
 threshold = 0.90 #The max ratio of licenses in use to licenses issued before WARNING
-matlab_file = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
-maple_file = '/usr/local/matlab-2013a/etc/glnxa64/maple.lic' #path to maple license file
+matlab_file = '/usr/local/etc/matlab.lic' #path to license file pointing to server
+maple_file = '/usr/local/etc/maple.lic' #path to maple license file
 
 #Run lmstat
 (status, output) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + matlab_file)
