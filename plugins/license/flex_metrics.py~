@@ -20,7 +20,7 @@ maple_file = '/usr/local/matlab-2013a/etc/glnxa64/maple.lic' #path to maple lice
 pattern = re.compile('(Users of )([^:]*)(:  \(Total of )([0-9]*)( licenses issued;  Total of )([0-9]*)( licenses in use\))')
 
 #Perform the search and store matches in list
-matches = re.findall(pattern, output + output2)
+matches = re.findall(pattern, output + exoutput2)
 
 #Process each license metric
 for match in matches:
