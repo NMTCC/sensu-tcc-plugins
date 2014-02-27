@@ -1,14 +1,42 @@
 #!/usr/bin/python
 # Plugin to track the FlexLM metrics
-# Requires a license file to point to the license server we are monitoring.
+# Checks all license server supplied with the --hosts option by running lmstat
+# with the lmutil program supplied with the --lmpath option. 
+# USAGE: flex_metrics.py --hosts host1 host2 hostN --lmpath /path/to/lmutil
 
-import re,sys,commands,socket,time
+import re,sys,commands,argparse,tempfile,socket,time
 
-#Set Variables
-file_path = '/usr/local/matlab-2013a/etc/glnxa64/matlab.lic' #path to license file pointing to server
+#Commandline Parsing
+parser = argparse.ArgumentParser()
+parser.add_argument('--hosts', nargs='+', help="fqdn names of license servers to check")
+parser.add_argument('--lmpath', nargs='?', help="path to lmutil program")
+args = parser.parse_args()
 
-#Run lmstat
-(status, output) = commands.getstatusoutput('/usr/local/matlab-2013a/etc/glnxa64/lmutil lmstat -a -c ' + file_path)
+#Generate License File(s)
+files = []
+for host in args.hosts:
+    t = tempfile.NamedTemporaryFile()
+    data = "SERVER " + host + " 27000\nUSE_SERVER"
+    t.write(data)
+    t.flush()
+    files.append(t)
+
+#Change Path to lmutil program
+if args.lmpath:
+    lmutil = args.lmpath
+else:
+    lmutil = '/usr/local/matlab-2013a/etc/glnxa64/lmutil'
+
+#Make sure path correctly points to a valid lmutil
+(statuscheck, output) = commands.getstatusoutput(lmutil)
+if statuscheck != 0:
+    print "Please enter a valid path to lmutil"
+    sys.exit(1)
+
+#Run lmstat (with lmutil) on each of the license files
+output = ''
+for licfile in files:
+    output = output + commands.getoutput(lmutil + " lmstat -a -c " + licfile.name)
 
 #Create Pattern were looking for
 #Regex Groups 
