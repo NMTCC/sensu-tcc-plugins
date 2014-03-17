@@ -16,10 +16,6 @@ require 'net/http'
 
 class HubotPush < Sensu::Handler
 
-  def widget
-    @event['client']['name'] + '-' + @event['check']['name']
-  end
-
   def handle
     #Extract viable information
     client = @event['client']['name']
