@@ -20,7 +20,7 @@ class HubotPush < Sensu::Handler
   def handle
     #Extract viable information
     client = @event['client']['name']
-    check = @event['client']['name']
+    check = @event['check']['name']
     statuscode = @event['client']['name']
     output = @event['client']['name']
 
