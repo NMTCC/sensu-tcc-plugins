@@ -18,7 +18,7 @@ class CheckAuthFailures < Sensu::Plugin::Check::CLI
     :proc => proc {|a| a.to_i },
     :default => 100
 
-	def run
+  def run
     num_failures = `grep "authentication failure" /var/log/secure | awk '{ print $13 }' | cut -b7-  | sort | uniq -c`.to_i
     message "#{num_failures} Authentication Failures this week"
 
