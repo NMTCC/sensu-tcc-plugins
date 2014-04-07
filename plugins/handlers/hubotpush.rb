@@ -25,8 +25,13 @@ class HubotPush < Sensu::Handler
     output = @event['client']['name']
 
     #Post Data to Hubot Listener
+    load_user_settings("hubotpush.json")
     uri = URI(settings['hubotpush']['host'])
     response = Net::HTTP.post_form(uri, {'client'=>client,'check'=>check,'statuscode'=>statuscode,'output'=>output})
+  end
+
+  def load_user_settings(filename)
+    @settings = JSON.parse(IO.read(filename))
   end
 end
 
