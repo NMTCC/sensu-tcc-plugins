@@ -21,8 +21,8 @@ class HubotPush < Sensu::Handler
     #Extract viable information
     client = @event['client']['name']
     check = @event['check']['name']
-    statuscode = @event['client']['name']
-    output = @event['client']['name']
+    statuscode = @event['check']['status']
+    output = @event['check']['output']
 
     #Post Data to Hubot Listener
     load_user_settings("hubotpush.json")
