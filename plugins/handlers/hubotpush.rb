@@ -31,7 +31,3 @@ output = "#{event[:check][:output]}".strip
 uri = URI("#{settings[:hubotpush][:host]}")
 response = Net::HTTP.post_form(uri, {'client'=>client,'check'=>check,'statuscode'=>statuscode,'output'=>output})
 
-
-
-
-
