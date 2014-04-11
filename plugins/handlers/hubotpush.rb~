@@ -15,8 +15,7 @@ require 'json'
 require 'net/http'
 
 #Read user settings from hubotpush.json
-settingsfile = "#{File.expand_path(File.dirname(__FILE__))}" + "/hubotpush.json"
-settings = JSON.parse(IO.read(settingsfile), :symbolize_names => true)
+settings = JSON.parse(IO.read("hubotpush.json"), :symbolize_names => true)
 
 # Read event data
 event = JSON.parse(STDIN.read, :symbolize_names => true)
@@ -30,6 +29,8 @@ output = "#{event[:check][:output]}".strip
 #Post Data to Hubot Listener
 uri = URI("#{settings[:hubotpush][:host]}")
 response = Net::HTTP.post_form(uri, {'client'=>client,'check'=>check,'statuscode'=>statuscode,'output'=>output})
+
+
 
 
 
