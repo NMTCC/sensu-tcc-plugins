@@ -1,5 +1,5 @@
 {
 	"hubotpush": {
-		"host": "http://neptr.nmt.edu:8080/hubot/sensu"
+		"host": "HUBOT_LISTENER_URI"
 	}
 }
