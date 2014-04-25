@@ -22,9 +22,10 @@ class HubotPush < Sensu::Handler
     client = @event['client']['name']
     check = @event['check']['name']
     statuscode = @event['check']['status']
-    output = @event['check']['output']
+    output = @event['check']['output'].strip
 
     #Post Data to Hubot Listener
+    print settings['hubotpush']['host']
     uri = URI(settings['hubotpush']['host'])
     response = Net::HTTP.post_form(uri, {'client'=>client,'check'=>check,'statuscode'=>statuscode,'output'=>output})
   end
