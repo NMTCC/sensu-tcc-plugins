@@ -5,6 +5,7 @@
 
 require 'rubygems' if RUBY_VERSION < '1.9.0'
 require 'sensu-plugin/check/cli'
+require 'open3'
 
 class CheckAuthFailures < Sensu::Plugin::Check::CLI
 
@@ -19,8 +20,24 @@ class CheckAuthFailures < Sensu::Plugin::Check::CLI
     :default => 100
 
   def run
-    num_failures = `grep "authentication failure" /var/log/secure | awk '{ print $13 }' | cut -b7-  | sort | uniq -c`.to_i
-    message "#{num_failures} Authentication Failures this week"
+    #Get times in YYYYMMDDHHMMSS format
+    today = (Time.now).strftime("%Y%m%d%h%M%S") 
+    day_ago = (Time.now - 86400).strftime("%Y%m%d%h%M%S") 
+		
+
+    #Execute lastb command and capture output in stdout variable
+    stdin0, stdout0, stderr0 = Open3.popen3("lastb")
+    stdin1, stdout1, stderr1 = Open3.popen3("lastb -t " + day_ago)
+
+    #lastb returns a line of output for each failed login
+    num_failures_today = stdout0.readlines.count
+    num_failures_day_ago = stdout1.readlines.count 
+
+    #Subtract yesterday's bad logins from today's
+    num_failures = num_failures_today - num_failures_day_ago
+
+
+    message "#{num_failures} Authentication Failures in past 24 hours"
 
     critical if num_failures > config[:crit]
     warning if num_failures > config[:warn]
