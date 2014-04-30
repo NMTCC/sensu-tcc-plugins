@@ -20,11 +20,11 @@ class AuthenticationFailuresGraphite < Sensu::Plugin::Metric::CLI::Graphite
   def run
 
     #Get times in YYYYMMDDHHMMSS format
-    today = (Time.now).strftime("%Y%m%d%h%M%S") 
-    day_ago = (Time.now - 86400).strftime("%Y%m%d%h%M%S") 
+    today = (Time.now).strftime("%Y%m%d%H%M%S") 
+    day_ago = (Time.now - 86400).strftime("%Y%m%d%H%M%S") 
 		
     #Execute lastb command and capture output in stdout variable
-    stdin0, stdout0, stderr0 = Open3.popen3("lastb")
+    stdin0, stdout0, stderr0 = Open3.popen3("lastb -t " + today)
     stdin1, stdout1, stderr1 = Open3.popen3("lastb -t " + day_ago)
 
     #lastb returns a line of output for each failed login

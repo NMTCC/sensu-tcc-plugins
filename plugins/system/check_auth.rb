@@ -21,8 +21,8 @@ class CheckAuthFailures < Sensu::Plugin::Check::CLI
 
   def run
     #Get times in YYYYMMDDHHMMSS format
-    today = (Time.now).strftime("%Y%m%d%h%M%S") 
-    day_ago = (Time.now - 86400).strftime("%Y%m%d%h%M%S") 
+    today = (Time.now).strftime("%Y%m%d%H%M%S") 
+    day_ago = (Time.now - 86400).strftime("%Y%m%d%H%M%S") 
 		
 
     #Execute lastb command and capture output in stdout variable
