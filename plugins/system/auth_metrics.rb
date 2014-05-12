@@ -21,7 +21,7 @@ class AuthenticationFailuresGraphite < Sensu::Plugin::Metric::CLI::Graphite
     :description => 'No. of minutes, back in time, to check',
     :short => '-m MINS',
     :proc => proc {|a| a.to_i },
-    :default => 60
+    :default => 86400
 
   def run
 

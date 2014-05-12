@@ -1,8 +1,7 @@
 #!/usr/bin/env ruby
 #
-# Check if too many authentication failures have happened during the past week
-#
-#
+# Check if too many authentication failures have happened during a previous time period
+# By default, checks No. of failures in past hour (change time period with -m option)
 
 require 'rubygems' if RUBY_VERSION < '1.9.0'
 require 'sensu-plugin/check/cli'
